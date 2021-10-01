@@ -21,23 +21,21 @@ public class MailPage {
     @FindBy(css = "div#cke_1_contents > div")
     private WebElement textField;
 
-    @FindBy(css = "html#nb-1 > body > div:nth-of-type(3) > div:nth-of-type(10) > div > div > div > div > div:nth-of-type(2) > div > div > div > div:nth-of-type(2) > div > div > div > button")
+    @FindBy(xpath = "//div[contains(@class,'ComposeControlPanel-Part')]/descendant::button")
     private WebElement sendButton;
 
-    @FindBy(css = "html#nb-1 > body > div:nth-of-type(3) > div:nth-of-type(7) > div > div:nth-of-type(2) > div > div > div > div:nth-of-type(2) > div > div > div > div > form > div > span > input")
+    @FindBy(className = "textinput__control")
     private WebElement searchField;
 
-    @FindBy(css = "html#nb-1 > body > div:nth-of-type(3) > div:nth-of-type(7) > div > div:nth-of-type(2) > div > div > div > div:nth-of-type(2) > div > div > div > div > form > button")
+    @FindBy(xpath = "//form[contains(@class, 'search-input__form')]/descendant::button")
     private WebElement searchButton;
 
-    @FindBy(css = "html#nb-1 > body > div:nth-of-type(3) > div:nth-of-type(7) > div > div:nth-of-type(3) > div:nth-of-type(3) > div:nth-of-type(3) > div > div:nth-of-type(5) > div > div > div > div:nth-of-type(2) > div > div > div > span > span")
+    @FindBy(xpath = "//span[contains(@class, 'mail-MessagesSearchInfo-Title')]/child::span")
     private WebElement countSpan;
-
-    public WebDriver driver;
 
     public MailPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver; }
+    }
 
     public void clickLoginBtn() {
         loginButton.click();

@@ -12,15 +12,17 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+
 public class YandexTest {
-    public static MailPage mailPage;
-    public static LoginPage loginPage;
-    public static WebDriver driver;
+    private static MailPage mailPage;
+    private static LoginPage loginPage;
+    private static WebDriver driver;
 
     @BeforeClass
     public static void setup() throws MalformedURLException {
-        ChromeOptions test = new ChromeOptions();
-        driver = new RemoteWebDriver(new URL("http://192.168.0.191:5558/wd/hub"),test);
+        ChromeOptions chromeOptions = new ChromeOptions();
+
+        driver = new RemoteWebDriver(new URL(ConfigReader.getProperty("nodelink")),chromeOptions);
 
         mailPage = new MailPage(driver);
         loginPage = new LoginPage(driver);
@@ -33,23 +35,28 @@ public class YandexTest {
         driver.get(ConfigReader.getProperty("loginpage"));
     }
     @Test
-    public void loginTest() {
+    public void yandexMailTest() {
+        //Переход на страницу аутентификации
         mailPage.clickLoginBtn();
+        //Вход в аккаунт
         loginPage.inputLogin(ConfigReader.getProperty("login"));
         loginPage.clickLoginBtn();
         loginPage.inputPasswd(ConfigReader.getProperty("password"));
         loginPage.clickLoginBtn();
-    }
 
-    @Test
-    public void sendMessageTest(){
+        //Поиск писем по теме во входящих
         mailPage.inputSearch(ConfigReader.getProperty("searchtext"));
         mailPage.clickSearchBtn();
+        //Смотрим на количество
         String count = mailPage.getCountFromSpan().split(" ")[0];
 
+        //Пишем новое письмо
         mailPage.clickNewMailBtn();
+        //Получатель
         mailPage.inputTo(ConfigReader.getProperty("login"));
+        //Тема
         mailPage.inputTheme(ConfigReader.getProperty("theme"));
+        //Текст письма
         mailPage.inputText(count);
         mailPage.clickSendBtn();
     }

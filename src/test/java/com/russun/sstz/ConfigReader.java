@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigReader {
-    protected static FileInputStream fileInputStream;
-    protected static Properties PROPERTIES;
+    private static FileInputStream fileInputStream;
+    private static Properties PROPERTIES;
     static {
         try {
             fileInputStream = new FileInputStream("src/test/resources/configuration.properties");
@@ -19,8 +19,10 @@ public class ConfigReader {
                 try {
                     fileInputStream.close();
                 } catch (IOException e) {
-                    e.printStackTrace(); } } }
-
+                    e.printStackTrace();
+                }
+        }
+    }
 
     public static String getProperty(String key) {
         return PROPERTIES.getProperty(key); }

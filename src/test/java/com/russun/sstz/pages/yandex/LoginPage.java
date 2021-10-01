@@ -1,12 +1,9 @@
 package com.russun.sstz.pages.yandex;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
     @FindBy(id = "passp-field-login")
@@ -18,11 +15,9 @@ public class LoginPage {
     @FindBy(id = "passp-field-passwd")
     private WebElement passwdField;
 
-    public WebDriver driver;
-
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver; }
+    }
 
     public void inputLogin(String login) {
         identifierField.sendKeys(login);
